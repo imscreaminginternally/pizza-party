@@ -1,0 +1,1883 @@
+* {
+
+  box-sizing: border-box;
+
+}
+
+
+html {
+
+  color-scheme: light;
+
+}
+
+
+html[data-theme="dark"] {
+
+  color-scheme: dark;
+
+}
+
+
+/* ============================================================
+
+   LIGHT
+
+============================================================ */
+
+:root {
+
+  --background: #fff8ed;
+
+  --background-secondary: #f6ecde;
+
+  --card: #ffffff;
+
+  --card-secondary: #faf7f2;
+
+  --text: #2d2926;
+
+  --text-muted: #746b64;
+
+  --border: #e5ddd3;
+
+  --border-strong: #d8cec2;
+
+  --primary: #d94b32;
+
+  --primary-hover: #c8402b;
+
+  --secondary-button: #f2e9dc;
+
+  --secondary-button-hover: #e9ddcd;
+
+  --green: #28724a;
+
+  --green-background: #eaf6ef;
+
+  --blue: #355b78;
+
+  --blue-background: #eef5fb;
+
+  --danger: #b42318;
+
+  --danger-background: #fce8e6;
+
+  --host-badge-background: #ffe4dd;
+
+  --input-background: #ffffff;
+
+  --disabled-background: #e9e4de;
+
+  --shadow:
+
+    0 10px 35px
+
+    rgba(45, 41, 38, 0.08);
+
+}
+
+
+/* ============================================================
+
+   DARK
+
+============================================================ */
+
+html[data-theme="dark"] {
+
+  --background: #161412;
+
+  --background-secondary: #201d1a;
+
+  --card: #211e1b;
+
+  --card-secondary: #292521;
+
+  --text: #f5eee7;
+
+  --text-muted: #b9aea4;
+
+  --border: #3b3530;
+
+  --border-strong: #514941;
+
+  --primary: #e7654d;
+
+  --primary-hover: #ef7059;
+
+  --secondary-button: #342f2a;
+
+  --secondary-button-hover: #403a34;
+
+  --green: #78c99b;
+
+  --green-background: #183326;
+
+  --blue: #9bc5e2;
+
+  --blue-background: #1b2c38;
+
+  --danger: #ff9285;
+
+  --danger-background: #3b211f;
+
+  --host-badge-background: #452821;
+
+  --input-background: #181614;
+
+  --disabled-background: #302c28;
+
+  --shadow:
+
+    0 10px 35px
+
+    rgba(0, 0, 0, 0.28);
+
+}
+
+
+/* ============================================================
+
+   PAGE
+
+============================================================ */
+
+html,
+
+body {
+
+  min-height: 100%;
+
+}
+
+
+body {
+
+  margin: 0;
+
+  min-height: 100dvh;
+
+  overscroll-behavior-y: none;
+
+  -webkit-tap-highlight-color:
+
+transparent;
+
+  font-family:
+
+-apple-system,
+
+    BlinkMacSystemFont,
+
+    "Segoe UI",
+
+    Roboto,
+
+Helvetica,
+
+Arial,
+
+sans-serif;
+
+  background:
+
+    var(--background);
+
+  color:
+
+    var(--text);
+
+}
+
+
+.container {
+
+  width:
+
+    min(94%, 600px);
+
+  margin:
+
+    0 auto;
+
+  padding-top:
+
+    max(
+
+      20px,
+
+      env(safe-area-inset-top)
+
+    );
+
+  padding-right:
+
+    max(
+
+      3%,
+
+      env(safe-area-inset-right)
+
+    );
+
+  padding-bottom:
+
+    calc(
+
+      60px +
+
+      env(safe-area-inset-bottom)
+
+    );
+
+  padding-left:
+
+    max(
+
+      3%,
+
+      env(safe-area-inset-left)
+
+    );
+
+}
+
+
+/* ============================================================
+
+   HEADER
+
+============================================================ */
+
+.app-header {
+
+  margin-bottom: 24px;
+
+  text-align: center;
+
+}
+
+
+.header-top-row {
+
+  display: grid;
+
+  grid-template-columns:
+
+    44px 1fr 44px;
+
+  align-items: center;
+
+}
+
+
+.header-spacer {
+
+  width: 44px;
+
+}
+
+
+.pizza-icon {
+
+  font-size: 56px;
+
+  line-height: 1.2;
+
+}
+
+
+h1 {
+
+  margin:
+
+    2px 0 8px;
+
+  font-size: 40px;
+
+}
+
+
+.status {
+
+  margin: 0;
+
+  color:
+
+    var(--green);
+
+  font-size: 13px;
+
+  font-weight: 650;
+
+}
+
+
+.icon-button {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 44px;
+
+  height: 44px;
+
+  min-height: 44px;
+
+  margin: 0;
+
+  padding: 0;
+
+  border:
+
+    1px solid var(--border);
+
+  border-radius: 50%;
+
+  background:
+
+    var(--card);
+
+  color:
+
+    var(--text);
+
+  box-shadow:
+
+    var(--shadow);
+
+  font-size: 19px;
+
+}
+
+
+.icon-button:hover {
+
+  background:
+
+    var(--card-secondary);
+
+}
+
+
+/* ============================================================
+
+   CARD
+
+============================================================ */
+
+.card {
+
+  padding: 26px;
+
+  margin-bottom: 24px;
+
+  border:
+
+    1px solid var(--border);
+
+  border-radius: 22px;
+
+  background:
+
+    var(--card);
+
+  box-shadow:
+
+    var(--shadow);
+
+}
+
+
+/* ============================================================
+
+   TEXT
+
+============================================================ */
+
+h2 {
+
+  margin:
+
+    0 0 18px;
+
+}
+
+
+h3 {
+
+  margin:
+
+    0 0 12px;
+
+}
+
+
+.center {
+
+  text-align: center;
+
+}
+
+
+.hidden {
+
+  display: none !important;
+
+}
+
+
+.eyebrow {
+
+  margin:
+
+    0 0 7px;
+
+  color:
+
+    var(--primary);
+
+  font-size: 11px;
+
+  font-weight: 850;
+
+  letter-spacing: 2px;
+
+  text-align: center;
+
+}
+
+
+.helper {
+
+  color:
+
+    var(--text-muted);
+
+  font-size: 13px;
+
+  line-height: 1.5;
+
+}
+
+
+.optional {
+
+  color:
+
+    var(--text-muted);
+
+  font-weight: 400;
+
+}
+
+
+/* ============================================================
+
+   FORMS
+
+============================================================ */
+
+label {
+
+  display: block;
+
+  margin:
+
+    18px 0 7px;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+}
+
+
+input,
+
+select,
+
+textarea {
+
+  width: 100%;
+
+  min-height: 44px;
+
+  padding: 14px;
+
+  border:
+
+    2px solid var(--border);
+
+  border-radius: 12px;
+
+  background:
+
+    var(--input-background);
+
+  color:
+
+    var(--text);
+
+  font: inherit;
+
+  font-size: 16px;
+
+}
+
+
+input:focus,
+
+select:focus,
+
+textarea:focus {
+
+  outline: none;
+
+  border-color:
+
+    var(--primary);
+
+}
+
+
+textarea {
+
+  min-height: 105px;
+
+  resize: vertical;
+
+}
+
+
+/* ============================================================
+
+   BUTTONS
+
+============================================================ */
+
+button {
+
+  width: 100%;
+
+  min-height: 44px;
+
+  margin-top: 14px;
+
+  padding: 14px;
+
+  border: 0;
+
+  border-radius: 12px;
+
+  background:
+
+    var(--primary);
+
+  color: #ffffff;
+
+  font-size: 16px;
+
+  font-weight: 750;
+
+  cursor: pointer;
+
+  touch-action: manipulation;
+
+}
+
+
+button:hover {
+
+  background:
+
+    var(--primary-hover);
+
+}
+
+
+button:disabled {
+
+  background:
+
+    var(--disabled-background);
+
+  color:
+
+    var(--text-muted);
+
+  cursor: not-allowed;
+
+}
+
+
+button.secondary {
+
+  background:
+
+    var(--secondary-button);
+
+  color:
+
+    var(--text);
+
+}
+
+
+button.secondary:hover {
+
+  background:
+
+    var(--secondary-button-hover);
+
+}
+
+
+/* ============================================================
+
+   SETTINGS
+
+============================================================ */
+
+.settings-section {
+
+  padding-top: 22px;
+
+  margin-top: 22px;
+
+  border-top:
+
+    1px solid var(--border);
+
+}
+
+
+.settings-section:first-of-type {
+
+  padding-top: 0;
+
+  margin-top: 0;
+
+  border-top: 0;
+
+}
+
+
+.theme-options {
+
+  display: grid;
+
+  grid-template-columns:
+
+    repeat(3, 1fr);
+
+  gap: 8px;
+
+}
+
+
+.theme-option {
+
+  margin: 0;
+
+  border:
+
+    1px solid var(--border);
+
+  background:
+
+    var(--secondary-button);
+
+  color:
+
+    var(--text);
+
+  font-size: 14px;
+
+}
+
+
+.theme-option.selected {
+
+  border-color:
+
+    var(--primary);
+
+  background:
+
+    var(--primary);
+
+  color: #ffffff;
+
+}
+
+
+.warning-box {
+
+  padding: 14px;
+
+  margin:
+
+    14px 0;
+
+  border:
+
+    1px solid
+
+    color-mix(
+
+      in srgb,
+
+      var(--danger) 30%,
+
+transparent
+
+    );
+
+  border-radius: 12px;
+
+  background:
+
+    var(--danger-background);
+
+  color:
+
+    var(--danger);
+
+  font-size: 13px;
+
+  line-height: 1.5;
+
+}
+
+
+/* ============================================================
+
+   INFO / MESSAGES
+
+============================================================ */
+
+.info-box {
+
+  padding: 14px;
+
+  margin-bottom: 18px;
+
+  border:
+
+    1px solid var(--border);
+
+  border-radius: 12px;
+
+  background:
+
+    var(--blue-background);
+
+  color:
+
+    var(--blue);
+
+  font-size: 13px;
+
+  line-height: 1.5;
+
+}
+
+
+.error {
+
+  min-height: 18px;
+
+  color:
+
+    var(--danger);
+
+  font-size: 13px;
+
+  text-align: center;
+
+}
+
+
+.message {
+
+  min-height: 18px;
+
+  color:
+
+    var(--green);
+
+  font-size: 13px;
+
+  text-align: center;
+
+  line-height: 1.45;
+
+}
+
+
+/* ============================================================
+
+   SECTIONS
+
+============================================================ */
+
+.game-section {
+
+  padding-top: 22px;
+
+  margin-top: 24px;
+
+  border-top:
+
+    1px solid var(--border);
+
+}
+
+
+.section-heading {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content:
+
+space-between;
+
+  gap: 14px;
+
+  margin-bottom: 12px;
+
+}
+
+
+.section-heading h3 {
+
+  margin: 0;
+
+}
+
+
+.count-badge {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-width: 30px;
+
+  min-height: 26px;
+
+  padding:
+
+    4px 9px;
+
+  border:
+
+    1px solid var(--border);
+
+  border-radius: 20px;
+
+  background:
+
+    var(--background-secondary);
+
+  font-size: 12px;
+
+  font-weight: 750;
+
+}
+
+
+/* ============================================================
+
+   ROWS
+
+============================================================ */
+
+.player-row,
+
+.planned-pizza-row,
+
+.progress-row,
+
+.detective-row,
+
+.my-pizza-row {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content:
+
+space-between;
+
+  gap: 12px;
+
+  padding:
+
+    12px 14px;
+
+  margin-bottom: 8px;
+
+  border:
+
+    1px solid var(--border);
+
+  border-radius: 12px;
+
+  background:
+
+    var(--card-secondary);
+
+}
+
+
+.row-primary {
+
+  font-weight: 700;
+
+}
+
+
+.row-secondary {
+
+  color:
+
+    var(--text-muted);
+
+  font-size: 12px;
+
+}
+
+
+/* ============================================================
+
+   BADGES
+
+============================================================ */
+
+.badges {
+
+  display: flex;
+
+  gap: 5px;
+
+}
+
+
+.badge {
+
+  padding:
+
+    3px 8px;
+
+  border-radius: 10px;
+
+  background:
+
+    var(--background-secondary);
+
+  color:
+
+    var(--text-muted);
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+}
+
+
+.badge.host {
+
+  background:
+
+    var(--host-badge-background);
+
+  color:
+
+    var(--primary);
+
+}
+
+
+.badge.you {
+
+  background:
+
+    var(--green-background);
+
+  color:
+
+    var(--green);
+
+}
+
+
+/* ============================================================
+
+   MY PIZZAS
+
+============================================================ */
+
+.my-pizza-actions {
+
+  flex-shrink: 0;
+
+}
+
+
+.my-pizza-actions button {
+
+  width: auto;
+
+  min-height: 36px;
+
+  margin: 0;
+
+  padding:
+
+    8px 13px;
+
+  background:
+
+    var(--secondary-button);
+
+  color:
+
+    var(--text);
+
+  font-size: 12px;
+
+}
+
+
+/* ============================================================
+
+   HOST PANELS
+
+============================================================ */
+
+.host-panel {
+
+  padding: 18px;
+
+  margin-top: 24px;
+
+  border:
+
+    1px solid var(--border);
+
+  border-radius: 16px;
+
+  background:
+
+    var(--card-secondary);
+
+}
+
+
+/* ============================================================
+
+   PROGRESS
+
+============================================================ */
+
+.progress-summary {
+
+  font-weight: 750;
+
+}
+
+
+.waiting-text {
+
+  color:
+
+    var(--text-muted);
+
+  font-size: 13px;
+
+}
+
+
+.status-done {
+
+  color:
+
+    var(--green);
+
+  font-weight: 750;
+
+}
+
+
+.status-waiting {
+
+  color:
+
+    var(--text-muted);
+
+  font-weight: 650;
+
+}
+
+
+.empty-state {
+
+  padding: 18px;
+
+  border:
+
+    1px dashed var(--border);
+
+  border-radius: 12px;
+
+  color:
+
+    var(--text-muted);
+
+  text-align: center;
+
+  font-size: 14px;
+
+}
+
+
+/* ============================================================
+
+   VOTING
+
+============================================================ */
+
+.pizza-tabs {
+
+  display: grid;
+
+  grid-template-columns:
+
+    repeat(
+
+auto-fit,
+
+      minmax(90px, 1fr)
+
+    );
+
+  gap: 8px;
+
+  margin:
+
+    18px 0;
+
+}
+
+
+.pizza-tabs button {
+
+  margin: 0;
+
+  padding: 10px;
+
+  border:
+
+    1px solid var(--border);
+
+  background:
+
+    var(--secondary-button);
+
+  color:
+
+    var(--text);
+
+  font-size: 13px;
+
+}
+
+
+.pizza-tabs button.selected {
+
+  background:
+
+    var(--primary);
+
+  color: #ffffff;
+
+}
+
+
+.pizza-tabs button.completed::after {
+
+  content: " ✓";
+
+}
+
+
+.rating-card {
+
+  padding: 18px;
+
+  border:
+
+    1px solid var(--border);
+
+  border-radius: 16px;
+
+  background:
+
+    var(--card-secondary);
+
+}
+
+
+.overall-box {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  padding: 18px;
+
+  margin-top: 20px;
+
+  border:
+
+    1px solid var(--border);
+
+  border-radius: 14px;
+
+  background:
+
+    var(--background-secondary);
+
+}
+
+
+.overall-box strong {
+
+  margin:
+
+    4px 0;
+
+  color:
+
+    var(--primary);
+
+  font-size: 32px;
+
+}
+
+
+/* ============================================================
+
+   MATCHING
+
+============================================================ */
+
+.guess-row {
+
+  padding: 15px;
+
+  margin:
+
+    12px 0;
+
+  border:
+
+    1px solid var(--border);
+
+  border-radius: 14px;
+
+  background:
+
+    var(--card-secondary);
+
+}
+
+
+/* ============================================================
+
+   RESULTS
+
+============================================================ */
+
+.result-card {
+
+  padding: 18px;
+
+  margin-bottom: 14px;
+
+  border:
+
+    1px solid var(--border);
+
+  border-radius: 16px;
+
+  background:
+
+    var(--card-secondary);
+
+}
+
+
+.result-rank {
+
+  color:
+
+    var(--primary);
+
+  font-size: 12px;
+
+  font-weight: 850;
+
+}
+
+
+.result-title {
+
+  margin-top: 4px;
+
+  font-size: 21px;
+
+  font-weight: 800;
+
+}
+
+
+.result-restaurant {
+
+  margin-top: 4px;
+
+  font-size: 18px;
+
+  font-weight: 750;
+
+}
+
+
+.result-score {
+
+  margin-top: 13px;
+
+  color:
+
+    var(--primary);
+
+  font-size: 28px;
+
+  font-weight: 850;
+
+}
+
+
+.result-detail {
+
+  margin-top: 5px;
+
+  color:
+
+    var(--text-muted);
+
+  font-size: 13px;
+
+}
+
+
+/* ============================================================
+
+   IPHONE
+
+============================================================ */
+
+@media (
+
+  max-width: 480px
+
+) {
+
+  .container {
+
+    width: 100%;
+
+    padding-right:
+
+      max(
+
+        14px,
+
+        env(safe-area-inset-right)
+
+      );
+
+    padding-left:
+
+      max(
+
+        14px,
+
+        env(safe-area-inset-left)
+
+      );
+
+  }
+
+
+  .card {
+
+    padding: 20px;
+
+    border-radius: 18px;
+
+  }
+
+
+  h1 {
+
+    font-size: 34px;
+
+  }
+
+
+  .pizza-icon {
+
+    font-size: 50px;
+
+  }
+
+
+  .theme-options {
+
+    gap: 6px;
+
+  }
+
+}
+
+
+/* ============================================================
+
+   INSTALLED HOME SCREEN MODE
+
+============================================================ */
+
+@media (
+
+  display-mode: standalone
+
+) {
+
+  .container {
+
+    padding-top:
+
+      max(
+
+        18px,
+
+        env(safe-area-inset-top)
+
+      );
+
+    padding-bottom:
+
+      calc(
+
+        65px +
+
+        env(safe-area-inset-bottom)
+
+      );
+
+  }
+
+}
+
+
+/* ============================================================
+
+   REDUCED MOTION
+
+============================================================ */
+
+@media (
+
+  prefers-reduced-motion: reduce
+
+) {
+
+  *,
+
+  *::before,
+
+  *::after {
+
+    transition-duration:
+
+      0.01ms !important;
+
+    animation-duration:
+
+      0.01ms !important;
+
+  }
+
+}
+
+.my-pizza-info {
+
+  flex: 1;
+
+  min-width: 0;
+
+}
+
+
+.my-pizza-label {
+
+  margin-bottom: 3px;
+
+  color:
+
+    var(--primary);
+
+  font-size: 11px;
+
+  font-weight: 850;
+
+  letter-spacing: 1.2px;
+
+  text-transform: uppercase;
+
+}
+
+/* ============================================================
+
+   PIZZA RATING NAVIGATION
+
+============================================================ */
+
+.pizza-rating-navigation {
+
+  margin-bottom: 22px;
+
+}
+
+
+.pizza-navigation-buttons {
+
+  display: grid;
+
+  grid-template-columns:
+
+    1fr 1fr;
+
+  gap: 10px;
+
+  margin-top: 10px;
+
+}
+
+
+.current-pizza-banner {
+
+  margin-bottom: 24px;
+
+  padding: 20px;
+
+  border:
+
+    2px solid var(--primary);
+
+  border-radius: 16px;
+
+  background:
+
+    var(--background-secondary);
+
+  text-align: center;
+
+}
+
+
+.current-pizza-caption {
+
+  margin-bottom: 6px;
+
+  color:
+
+    var(--text-muted);
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.4px;
+
+}
+
+
+.current-pizza-label {
+
+  color:
+
+    var(--primary);
+
+  font-size: 36px;
+
+  font-weight: 900;
+
+  line-height: 1.1;
+
+}
+/* ============================================================
+   COMBINED VOTING + MATCHING
+============================================================ */
+
+.price-guess-section,
+.restaurant-guess-section {
+  padding-top: 18px;
+  margin-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.my-pizza-price {
+  margin-top: 4px;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.my-pizza-price.missing {
+  color: var(--danger);
+}
+
+.price-result {
+  margin-top: 9px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--background-secondary);
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.price-result strong {
+  color: var(--text);
+}
+
+/* ============================================================
+   RESULTS ERROR
+============================================================ */
+
+.error-box {
+  padding: 16px;
+  border: 1px solid var(--danger);
+  border-radius: 12px;
+  background: var(--danger-background);
+  color: var(--danger);
+  line-height: 1.45;
+}
+
+.error-box p {
+  margin: 8px 0 0;
+}
+
+/* ============================================================
+   PERSONAL GUESS TABLE
+============================================================ */
+
+.results-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 14px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.guess-results-table {
+  width: 100%;
+  min-width: 860px;
+  border-collapse: collapse;
+  background: var(--card-secondary);
+  font-size: 13px;
+}
+
+.guess-results-table th,
+.guess-results-table td {
+  padding: 12px 13px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.guess-results-table th {
+  position: sticky;
+  top: 0;
+  background: var(--background-secondary);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.guess-results-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.guess-results-table tr.has-incorrect td {
+  background: color-mix(in srgb, var(--danger-background) 65%, transparent);
+}
+
+.result-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.result-badge.correct {
+  background: var(--green-background);
+  color: var(--green);
+}
+
+.result-badge.incorrect {
+  background: var(--danger-background);
+  color: var(--danger);
+}
+
+.result-badge.neutral {
+  background: var(--background-secondary);
+  color: var(--text-muted);
+}
+
+@media (max-width: 480px) {
+  .results-table-wrap {
+    margin-right: -4px;
+    margin-left: -4px;
+  }
+
+  .guess-results-table th,
+  .guess-results-table td {
+    padding: 11px;
+  }
+}
+
+
+/* ============================================================
+   DOUBLE-BLIND RELABELING
+============================================================ */
+
+.blinding-round-badge {
+  width: fit-content;
+  margin: 0 auto 14px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 1.1px;
+}
+
+.blinding-steps {
+  padding-left: 22px;
+  margin: 18px 0 24px;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.blinding-steps li {
+  margin-bottom: 7px;
+}
+
+.blinding-mapping-list {
+  display: grid;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.blinding-map-row {
+  display: grid;
+  grid-template-columns: minmax(80px, 1fr) 32px minmax(120px, 1.4fr);
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card-secondary);
+}
+
+.blinding-current-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.blinding-current-label strong {
+  color: var(--primary);
+  font-size: 22px;
+}
+
+.blinding-arrow {
+  color: var(--text-muted);
+  text-align: center;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.blinding-map-row select {
+  margin: 0;
+}
+
+.custody-table-wrap .custody-table {
+  min-width: 520px;
+}
+
+.custody-table td {
+  font-weight: 700;
+}
+
+@media (max-width: 480px) {
+  .blinding-map-row {
+    grid-template-columns: 70px 24px 1fr;
+    gap: 8px;
+  }
+}
+
+
+/* ============================================================
+   OPTIONAL PIZZA PARTICIPATION
+============================================================ */
+
+.participation-choice {
+  padding: 14px;
+  margin: 14px 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card-secondary);
+}
+
+.participation-choice .helper {
+  margin: 0;
+}
+
+.participation-choice button {
+  margin-top: 12px;
+}

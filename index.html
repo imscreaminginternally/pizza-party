@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <meta id="theme-color-meta" name="theme-color" content="#fff8ed">
+
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <meta name="apple-mobile-web-app-title" content="Pizza Party">
+
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+
+    <title>
+
+        Pizza Party
+
+    </title>
+
+
+    <!-- APPLY THEME BEFORE RENDER -->
+
+    <script>
+
+        (() => {
+
+            const savedTheme =
+
+                localStorage.getItem(
+
+                    "pizzaParty:theme"
+
+                ) || "system";
+
+
+            const systemDark =
+
+                window.matchMedia &&
+
+                window.matchMedia(
+
+                    "(prefers-color-scheme: dark)"
+
+                ).matches;
+
+
+            const actualTheme =
+
+                savedTheme === "system"
+
+                    ? (
+
+                        systemDark
+
+                            ? "dark"
+
+                            : "light"
+
+                    )
+
+                    : savedTheme;
+
+
+            document.documentElement
+
+                .setAttribute(
+
+                    "data-theme",
+
+                    actualTheme
+
+                );
+
+        })();
+
+    </script>
+
+    <!-- STYLES -->
+
+    <link rel="stylesheet" href="./style.css?v=17">
+
+
+    <!-- SUPABASE -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+</head>
+
+
+<body>
+
+
+    <main class="container">
+
+
+        <!-- =====================================================
+
+       HEADER
+
+  ====================================================== -->
+
+        <header class="app-header">
+
+            <div class="header-top-row">
+
+                <div class="header-spacer"></div>
+
+
+                <div class="pizza-icon" aria-hidden="true">
+
+                    🍕
+
+                </div>
+
+
+                <button id="settings-button" class="icon-button" type="button" aria-label="Settings" title="Settings">
+
+                    ⚙
+
+                </button>
+
+            </div>
+
+
+            <h1>
+
+                Pizza Party
+
+            </h1>
+
+
+            <p id="status" class="status" aria-live="polite">
+
+                Connecting...
+
+            </p>
+
+        </header>
+
+
+        <section class="card main-card">
+
+
+            <!-- =====================================================
+
+         HOME
+
+    ====================================================== -->
+
+            <div id="home-screen" class="screen hidden">
+
+                <h2>
+
+                    Create a Party
+
+                </h2>
+
+
+                <label for="party-name">
+
+                    Party Name
+
+                </label>
+
+
+                <input id="party-name" type="text" maxlength="60" autocomplete="off">
+
+
+                <label for="host-name">
+
+                    Your Name
+
+                </label>
+
+
+                <input id="host-name" type="text" maxlength="30" autocomplete="name">
+
+
+                <button id="create-party-button" type="button">
+
+                    Create Party
+
+                </button>
+
+
+                <p id="create-error" class="error" aria-live="polite"></p>
+
+            </div>
+
+
+            <!-- =====================================================
+
+         FRIEND INVITE
+
+    ====================================================== -->
+
+            <div id="invite-screen" class="screen hidden">
+
+                <h2>
+
+                    Join Party
+
+                </h2>
+
+
+                <label for="invite-player-name">
+
+                    Your Name
+
+                </label>
+
+
+                <input id="invite-player-name" type="text" maxlength="30" autocomplete="name">
+
+
+                <button id="join-invite-button" type="button">
+
+                    Join Party
+
+                </button>
+
+
+                <p id="invite-error" class="error" aria-live="polite"></p>
+
+            </div>
+
+
+            <!-- =====================================================
+
+         SETTINGS
+
+    ====================================================== -->
+
+            <div id="settings-screen" class="screen hidden">
+
+                <h2>
+
+                    Settings
+
+                </h2>
+
+
+                <section class="settings-section">
+
+                    <h3>
+
+                        Appearance
+
+                    </h3>
+
+
+                    <div class="theme-options" role="group" aria-label="Appearance">
+
+                        <button id="theme-light-button" class="theme-option" type="button">
+
+                            Light
+
+                        </button>
+
+
+                        <button id="theme-dark-button" class="theme-option" type="button">
+
+                            Dark
+
+                        </button>
+
+
+                        <button id="theme-system-button" class="theme-option" type="button">
+
+                            System
+
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <section id="create-transfer-section" class="settings-section hidden">
+
+                    <h3>
+
+                        Move to Another Device
+
+                    </h3>
+
+
+                    <p class="helper">
+
+                        Create a private link to move your current party session to another phone, browser, or Home
+
+                        Screen app.
+
+                    </p>
+
+
+                    <div class="warning-box">
+
+                        Anyone with this private transfer link can take over your party session. The link expires after
+
+                        5 minutes and works only once.
+
+                    </div>
+
+
+                    <button id="copy-transfer-button" type="button">
+
+                        Copy Private Transfer Link
+
+                    </button>
+
+
+                    <p id="transfer-create-message" class="message" aria-live="polite"></p>
+
+                </section>
+
+
+                <section class="settings-section">
+
+                    <h3>
+
+                        Transfer Existing Session Here
+
+                    </h3>
+
+
+                    <p class="helper">
+
+                        Paste the private transfer link created from your existing party session.
+
+                    </p>
+
+
+                    <label for="transfer-input">
+
+                        Private Transfer Link
+
+                    </label>
+
+
+                    <input id="transfer-input" type="text" autocomplete="off" autocapitalize="none" spellcheck="false">
+
+
+                    <button id="claim-transfer-button" type="button">
+
+                        Transfer to This Device
+
+                    </button>
+
+
+                    <p id="transfer-claim-message" class="message" aria-live="polite"></p>
+
+                </section>
+
+
+                <button id="settings-back-button" class="secondary" type="button">
+
+                    Back
+
+                </button>
+
+            </div>
+
+
+            <!-- =====================================================
+
+         LOBBY
+
+    ====================================================== -->
+
+            <div id="lobby-screen" class="screen hidden">
+
+                <p class="eyebrow">
+
+                    PLANNING
+
+                </p>
+
+
+                <h2 id="lobby-party-name" class="center"></h2>
+
+
+                <!-- HOST INVITES -->
+
+                <section id="invite-controls" class="host-panel hidden">
+
+                    <h3>
+
+                        Invite Friends
+
+                    </h3>
+
+
+                    <button id="copy-invite-button" type="button">
+
+                        Copy Friend Invite Link
+
+                    </button>
+
+
+                    <button id="rotate-invite-button" class="secondary" type="button">
+
+                        Replace Friend Invite Link
+
+                    </button>
+
+
+                    <p id="invite-link-message" class="message" aria-live="polite"></p>
+
+                </section>
+
+
+                <!-- PARTICIPANTS -->
+
+                <section class="game-section">
+
+                    <div class="section-heading">
+
+                        <h3>
+
+                            Participants
+
+                        </h3>
+
+
+                        <span id="player-count" class="count-badge"></span>
+
+                    </div>
+
+
+                    <div id="player-list"></div>
+
+                </section>
+
+
+                <!-- PUBLIC RESTAURANTS -->
+
+                <section class="game-section">
+
+                    <div class="section-heading">
+
+                        <h3>
+
+                            Pepperoni Pizzas Being Brought
+
+                        </h3>
+
+
+                        <span id="planned-pizza-count" class="count-badge"></span>
+
+                    </div>
+
+
+                    <p class="helper">
+
+                        Restaurants are visible during planning, but the person bringing each pizza stays anonymous.
+
+                    </p>
+
+
+                    <div id="planned-pizza-list"></div>
+
+                </section>
+
+
+                <!-- PRIVATE MY PIZZAS -->
+
+                <section class="game-section">
+
+                    <div class="section-heading">
+
+                        <h3>
+
+                            My Pizzas <span class="optional">Optional</span>
+
+                        </h3>
+
+
+                        <span id="my-pizza-count" class="count-badge"></span>
+
+                    </div>
+
+
+                    <p class="helper">
+
+                        If you bring a pizza, put its original pizza letter on a sticky note on top. The letter will be
+                        relabeled twice before tasting begins.
+
+                    </p>
+
+                    <div class="participation-choice">
+
+                        <p id="participation-status" class="helper"></p>
+
+                        <button id="voting-only-button" class="secondary" type="button">
+
+                            I'm Voting Only
+
+                        </button>
+
+                    </div>
+
+
+                    <div id="my-pizza-list"></div>
+
+
+                    <button id="add-pizza-button" type="button">
+
+                        Add Another Pizza
+
+                    </button>
+
+                </section>
+
+
+                <!-- HOST SUBMISSION PROGRESS -->
+
+                <section id="lobby-host-progress" class="host-panel hidden">
+
+                    <h3>
+
+                        Participation Status
+
+                    </h3>
+
+
+                    <p id="lobby-progress-summary" class="progress-summary"></p>
+
+
+                    <p id="lobby-waiting" class="waiting-text"></p>
+
+
+                    <div id="lobby-progress-list" class="progress-list"></div>
+
+
+                    <button id="begin-blinding-button" type="button">
+
+                        Begin Double-Blind Setup
+
+                    </button>
+
+                </section>
+
+
+                <p id="lobby-error" class="error" aria-live="polite"></p>
+
+            </div>
+
+
+            <!-- =====================================================
+
+         ADD / EDIT PIZZA
+
+    ====================================================== -->
+
+            <div id="pizza-screen" class="screen hidden">
+
+                <h2 id="pizza-editor-title">
+
+                    Add Pizza
+
+                </h2>
+
+
+                <div class="info-box">
+
+                    Your restaurant and pizza letter are linked privately. Other participants will not see that mapping
+
+                    until the results are revealed.
+
+                </div>
+
+
+                <!-- RESTAURANT -->
+
+                <label for="pizza-restaurant">
+
+                    Restaurant
+
+                </label>
+
+
+                <input id="pizza-restaurant" type="text" maxlength="100" autocomplete="off">
+
+
+                <!-- OPTIONAL PRICE TIER -->
+
+                <label for="actual-price-tier">
+
+                    Price Tier
+
+                    <span class="optional">
+
+                        Optional
+
+                    </span>
+
+                </label>
+
+
+                <select id="actual-price-tier">
+
+                    <option value="">
+
+                        Not set
+
+                    </option>
+
+
+                    <option value="$">
+
+                        $
+
+                    </option>
+
+
+                    <option value="$$">
+
+                        $$
+
+                    </option>
+
+
+                    <option value="$$$">
+
+                        $$$
+
+                    </option>
+
+                </select>
+
+
+                <p class="helper">
+
+                    Optional. This stays hidden from everyone else until the results are revealed.
+
+                </p>
+
+
+                <button id="save-pizza-button" type="button">
+
+                    Save Pizza
+
+                </button>
+
+
+                <button id="pizza-back-button" class="secondary" type="button">
+
+                    Back
+
+                </button>
+
+
+                <p id="pizza-error" class="error" aria-live="polite"></p>
+
+            </div>
+
+
+            <!-- =====================================================
+
+         DOUBLE-BLIND RELABELING
+
+    ====================================================== -->
+
+            <div id="blinding-screen" class="screen hidden">
+
+                <p class="eyebrow">DOUBLE-BLIND SETUP</p>
+
+                <h2 id="blinding-round-title" class="center">Double-Blind Relabeling</h2>
+
+                <div id="blinding-waiting-panel" class="info-box">
+                    <p id="blinding-waiting-text" class="center">Waiting for the selected relabeler.</p>
+                </div>
+
+                <section id="blinding-handler-panel" class="hidden">
+
+                    <div class="blinding-round-badge">PRIVATE RELABELER SCREEN</div>
+
+                    <h3 id="blinding-handler-heading" class="center"></h3>
+
+                    <p id="blinding-handler-copy" class="helper center"></p>
+
+                    <div class="warning-box">
+                        Keep everyone else out of the setup area. Remove branded boxes from view. Do not tell anyone
+                        your mapping after you submit it.
+                    </div>
+
+                    <ol class="blinding-steps">
+                        <li>Look at the current sticky-note letter on each pizza.</li>
+                        <li>Move every sticky note to a different pizza. Every letter must move.</li>
+                        <li>Shuffle the physical pizza positions as well.</li>
+                        <li>Record the new letter for each current letter below.</li>
+                        <li>Lock the round, leave the setup area, and keep the mapping secret.</li>
+                    </ol>
+
+                    <div id="blinding-mapping-list" class="blinding-mapping-list"></div>
+
+                    <button id="submit-blinding-button" type="button" disabled>
+                        Lock Relabeling Round
+                    </button>
+
+                </section>
+
+                <p id="blinding-message" class="error" aria-live="polite"></p>
+
+            </div>
+
+
+            <!-- =====================================================
+
+         TASTING
+
+    ====================================================== -->
+
+            <div id="tasting-screen" class="screen hidden">
+
+                <p class="eyebrow">
+
+                    TASTING
+
+                </p>
+
+
+                <h2>
+
+                    Pizzas
+
+                </h2>
+
+
+                <p class="helper center">
+
+                    Taste each pizza using its final double-blind letter. Nobody is shown which pizza they brought.
+
+                </p>
+
+
+                <div id="tasting-pizza-list"></div>
+
+
+                <section id="host-tasting-controls" class="host-panel hidden">
+
+                    <button id="open-voting-button" type="button">
+
+                        Open Voting
+
+                    </button>
+
+                </section>
+
+            </div>
+
+
+            <!-- =====================================================
+
+         VOTING + MATCHING
+
+    ====================================================== -->
+
+            <div id="voting-screen" class="screen hidden">
+
+                <p class="eyebrow">VOTING &amp; MATCHING</p>
+
+                <h2>Rate &amp; Match the Pizzas</h2>
+
+                <p class="helper center">
+                    Rate each pizza, guess its price tier, and match it to a restaurant while the taste is fresh.
+                </p>
+
+                <p id="voting-progress" class="progress-summary center"></p>
+
+                <div class="pizza-rating-navigation">
+                    <label for="rating-pizza-select">Pizza</label>
+                    <select id="rating-pizza-select"></select>
+
+                    <div class="pizza-navigation-buttons">
+                        <button id="previous-pizza-button" class="secondary" type="button">Previous</button>
+                        <button id="next-pizza-button" class="secondary" type="button">Next</button>
+                    </div>
+                </div>
+
+                <div class="rating-card">
+
+                    <div class="current-pizza-banner">
+                        <div class="current-pizza-caption">YOU ARE RATING</div>
+                        <div id="rating-pizza-label" class="current-pizza-label">Pizza</div>
+                    </div>
+
+                    <label for="crust-score">Crust</label>
+                    <select id="crust-score"></select>
+
+                    <label for="sauce-score">Sauce</label>
+                    <select id="sauce-score"></select>
+
+                    <label for="cheese-score">Cheese</label>
+                    <select id="cheese-score"></select>
+
+                    <section id="price-guess-section" class="price-guess-section">
+                        <label for="price-guess">Price Guess</label>
+                        <select id="price-guess">
+                            <option value="">Select</option>
+                            <option value="$">$</option>
+                            <option value="$$">$$</option>
+                            <option value="$$$">$$$</option>
+                        </select>
+                        <p id="price-guess-helper" class="helper">
+                            Guess the price tier. You can guess your own pizza too.
+                        </p>
+                    </section>
+
+                    <section class="restaurant-guess-section">
+                        <label for="restaurant-guess">Restaurant Guess</label>
+                        <select id="restaurant-guess"></select>
+                        <p id="restaurant-guess-helper" class="helper">
+                            Match this pizza to one restaurant. You can guess your own pizza too.
+                        </p>
+                    </section>
+
+                    <div class="overall-box">
+                        <span>Overall</span>
+                        <strong id="overall-score-display">—</strong>
+                        <small>Average of crust, sauce, and cheese</small>
+                    </div>
+
+                    <label for="rating-notes">
+                        Notes
+                        <span class="optional">Optional</span>
+                    </label>
+                    <textarea id="rating-notes" maxlength="500"></textarea>
+
+                    <button id="save-rating-button" type="button">Save Pizza Vote</button>
+                    <p id="rating-message" class="message" aria-live="polite"></p>
+                </div>
+
+                <button id="finish-voting-button" type="button">I'm Done Voting</button>
+                <button id="reopen-voting-button" class="secondary hidden" type="button">Edit My Votes</button>
+                <p id="voting-lock-message" class="helper center"></p>
+
+                <section id="voting-host-progress" class="host-panel hidden">
+                    <h3>Voting Status</h3>
+                    <p id="voting-progress-summary" class="progress-summary"></p>
+                    <p id="voting-waiting" class="waiting-text"></p>
+                    <div id="voting-progress-list" class="progress-list"></div>
+                    <button id="reveal-results-button" type="button">Reveal Results</button>
+                </section>
+
+            </div>
+
+
+            <!-- =====================================================
+
+         RESULTS
+
+    ====================================================== -->
+
+            <div id="results-screen" class="screen hidden">
+
+                <p class="eyebrow">RESULTS</p>
+
+                <h2>Pizza Rankings</h2>
+                <p class="helper">
+                    Every pizza is ranked from highest to lowest overall score.
+                </p>
+                <div id="results-list"></div>
+
+                <section class="game-section">
+                    <h2>Your Guesses</h2>
+                    <p class="helper">
+                        Every pizza you matched, your restaurant guess, the actual restaurant, your price guess, and
+                        whether each guess was correct.
+                    </p>
+                    <div id="my-guess-table"></div>
+                </section>
+
+                <section class="game-section">
+                    <h2>Restaurant Matching Leaderboard</h2>
+                    <p class="helper">
+                        Every participant is shown. Every pizza counts, including pizzas the participant brought.
+                    </p>
+                    <div id="detective-list"></div>
+                </section>
+
+                <section class="game-section">
+                    <h2>Price Guessing Leaderboard</h2>
+                    <p class="helper">
+                        Every participant is shown. Pizzas without an actual price tier are not scored.
+                    </p>
+                    <div id="price-guess-list"></div>
+                </section>
+
+                <section id="blinding-chain-section" class="game-section hidden">
+                    <h2>Double-Blind Chain of Custody</h2>
+                    <p class="helper">
+                        After reveal, the two private relabeling rounds can be audited from the original sticky-note
+                        labels to the final tasting labels.
+                    </p>
+                    <p id="blinding-audit-summary" class="helper"></p>
+                    <div id="blinding-chain-table"></div>
+                </section>
+
+                <button id="return-home-button" class="secondary" type="button">Return Home</button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+
+     APP JAVASCRIPT
+
+========================================================== -->
+
+    <script src="./app.js?v=17"></script>
+
+</body>
+
+</html>
